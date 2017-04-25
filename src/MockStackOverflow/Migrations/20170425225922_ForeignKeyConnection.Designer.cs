@@ -8,9 +8,10 @@ using MockStackOverflow.Models;
 namespace MockStackOverflow.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170425225922_ForeignKeyConnection")]
+    partial class ForeignKeyConnection
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
@@ -132,13 +133,9 @@ namespace MockStackOverflow.Migrations
 
                     b.Property<int>("QuestionId");
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("AnswerId");
 
                     b.HasIndex("QuestionId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Answers");
                 });
@@ -253,10 +250,6 @@ namespace MockStackOverflow.Migrations
                         .WithMany("Answers")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("MockStackOverflow.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("MockStackOverflow.Models.Question", b =>

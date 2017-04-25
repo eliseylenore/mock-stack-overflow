@@ -1,0 +1,24 @@
+﻿@{ 
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<MockStackOverflow.Models.Question>
+
+<h2>Here are the questions you have asked, @User.Identity.Name</h2>
+<hr />
+
+@if (Model.Any())
+{
+    @foreach (var listItem in Model)
+    {
+        <p>@Html.ActionLink((string)listItem.Title, "Details", new { id = listItem.Id })</p>
+
+    }
+}
+else
+{
+    <p>No questions have been asked yet!</p>
+}
+
+@Html.ActionLink("Create new", "Create")
